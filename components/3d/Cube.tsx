@@ -1,7 +1,8 @@
-import { useRef } from 'react';
+import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-// import { useTexture } from '@react-three/drei';
+import { Asset } from 'expo-asset';
+import ExpoTHREE from 'expo-three';
 
 interface CubeProps {
   texture?: 'texture1' | 'texture2';
@@ -10,14 +11,19 @@ interface CubeProps {
 export default function Cube({ texture }: CubeProps) {
   const meshRef = useRef<THREE.Mesh>(null);
 
-  // Load textures using the idiomatic useTexture hook from drei
-  // const textures = {
-  //   texture1: useTexture({map: '../../assets/textures/texture1.png'}),
-  //   texture2: useTexture({map: '../../assets/textures/texture2.png'}),
-  // };
+  // Load textures using ExpoTHREE for cross-platform compatibility
+  const textures = useMemo(() => {
+    const texture1Asset = Asset.fromModule(require('../../assets/textures/texture1.png'));
+    const texture2Asset = Asset.fromModule(require('../../assets/textures/texture2.png'));
+
+    return {
+      texture1: new ExpoTHREE.TextureLoader().load(texture1Asset),
+      texture2: new ExpoTHREE.TextureLoader().load(texture2Asset),
+    };
+  }, []);
 
   // Select the appropriate texture based on prop
-  // const selectedTexture = texture ? textures[texture] : undefined;
+  const selectedTexture = texture === 'texture1' ? textures.texture1 : textures.texture2;
 
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -29,9 +35,7 @@ export default function Cube({ texture }: CubeProps) {
   return (
     <mesh ref={meshRef}>
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial
-          color={texture === "texture1" ? "green" : "orange"}
-      />
+      <meshStandardMaterial map={selectedTexture} />
     </mesh>
   );
 }
