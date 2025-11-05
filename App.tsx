@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, Pressable, Text } from 'react-native';
 import Scene from './components/3d/Scene';
-import Cube from './components/3d/Cube';
+import Model from './components/3d/Model';
+import Cube from "./components/3d/Cube";
 
 export default function App() {
   const [selectedTexture, setSelectedTexture] = useState<'texture1' | 'texture2'>('texture1');
@@ -10,6 +11,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Scene>
+        {/*<Model texture={selectedTexture} />*/}
         <Cube texture={selectedTexture} />
       </Scene>
 
