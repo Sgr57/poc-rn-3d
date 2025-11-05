@@ -1,5 +1,6 @@
-import { Canvas } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber/native';
 import { View, StyleSheet } from 'react-native';
+import {Suspense} from "react";
 
 interface SceneProps {
   children: React.ReactNode;
@@ -13,7 +14,9 @@ export default function Scene({ children }: SceneProps) {
       >
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 5]} intensity={1} />
-        {children}
+          <Suspense>
+            {children}
+          </Suspense>
       </Canvas>
     </View>
   );
