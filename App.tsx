@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, Pressable, Text } from 'react-native';
+import { OrbitControls } from "@react-three/drei/native";
 import Scene from './components/3d/Scene';
 import Model from './components/3d/Model';
 import Cube from "./components/3d/Cube";
@@ -12,6 +13,7 @@ export default function App() {
     <View style={styles.container}>
       <Scene>
         <Model texture={selectedTexture} />
+        <OrbitControls />
       </Scene>
       {/*<Scene>*/}
       {/*  <Cube texture={selectedTexture} />*/}

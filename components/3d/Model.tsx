@@ -45,8 +45,6 @@ export default function Model({ texture = 'texture1' }: ModelProps) {
 
   // Rotation animation
   useFrame((state, delta) => {
-    clonedScene.rotation.x += delta * 0.5;
-    clonedScene.rotation.y += delta * 0.3;
   });
 
   return (
