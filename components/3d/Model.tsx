@@ -33,7 +33,8 @@ export default function Model({ texture = 'texture1' }: ModelProps) {
     const selectedTexture = texture === 'texture1' ? texture1 : texture2;
 
     clonedScene.traverse((obj: any) => {
-      if (obj.isMesh && obj.material) {
+      if (obj.isMesh && obj.material && obj.material.name === "telaBlinn") {
+        console.log("clonedScene.traverse: obj.material", obj.material);
         obj.material.map = selectedTexture;
         obj.material.needsUpdate = true;
       }
