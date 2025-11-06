@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber/native';
 import { useGLTF } from "@react-three/drei/native";
 // import { Asset } from 'expo-asset';
 // import THREE from 'expo-three';
-import modelPath from "../../assets/iphone.glb";
+import modelPath from "../../assets/Tela-Photosì-Textured.glb";
 
 interface ModelProps {
   texture?: 'texture1' | 'texture2';
@@ -30,7 +30,7 @@ export default function Model({ texture }: ModelProps) {
 
   useFrame((state, delta) => {
     scene.rotation.x += delta * 0.5;
-    scene.rotation.y += delta * 0.3;
+    // scene.rotation.y += delta * 0.3;
   });
 
   return (
