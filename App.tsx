@@ -11,9 +11,11 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Scene>
-        {/*<Model texture={selectedTexture} />*/}
-        <Cube texture={selectedTexture} />
+        <Model texture={selectedTexture} />
       </Scene>
+      {/*<Scene>*/}
+      {/*  <Cube texture={selectedTexture} />*/}
+      {/*</Scene>*/}
 
       <View style={styles.buttonContainer}>
         <Pressable
