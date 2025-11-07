@@ -1,23 +1,17 @@
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, Pressable, Text } from 'react-native';
-import { OrbitControls } from "@react-three/drei/native";
-import Scene from './components/3d/Scene';
-import Model from './components/3d/Model';
-import Cube from "./components/3d/Cube";
+import FilamentScene from './components/3d/filament/FilamentScene';
+import FilamentModel from './components/3d/filament/FilamentModel';
 
 export default function App() {
   const [selectedTexture, setSelectedTexture] = useState<'texture1' | 'texture2'>('texture1');
 
   return (
     <View style={styles.container}>
-      <Scene>
-        <Model texture={selectedTexture} />
-        <OrbitControls />
-      </Scene>
-      {/*<Scene>*/}
-      {/*  <Cube texture={selectedTexture} />*/}
-      {/*</Scene>*/}
+      <FilamentScene>
+        <FilamentModel texture={selectedTexture} />
+      </FilamentScene>
 
       <View style={styles.buttonContainer}>
         <Pressable
