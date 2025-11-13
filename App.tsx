@@ -2,9 +2,8 @@ import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, Pressable, Text } from 'react-native';
 import { OrbitControls } from "@react-three/drei/native";
+import CanvasFrame from './components/3d/CanvasFrame';
 import Scene from './components/3d/Scene';
-import Model from './components/3d/Model';
-import Cube from "./components/3d/Cube";
 
 export default function App() {
   const [selectedTexture, setSelectedTexture] = useState<'texture1' | 'texture2'>('texture1');
@@ -12,12 +11,13 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Scene>
-        <Model texture={selectedTexture} />
-        <OrbitControls />
+        <CanvasFrame texture={selectedTexture} />
+        <OrbitControls enableDamping={true}
+        dampingFactor={0.05}
+        minDistance={3}
+        maxDistance={20}
+        maxAzimuthAngle={Math.PI / 4}/>
       </Scene>
-      {/*<Scene>*/}
-      {/*  <Cube texture={selectedTexture} />*/}
-      {/*</Scene>*/}
 
       <View style={styles.buttonContainer}>
         <Pressable
@@ -49,7 +49,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#dddddd',
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 16,
     gap: 16,
-    backgroundColor: '#fff',
+    backgroundColor: '#dddddd',
   },
   button: {
     paddingVertical: 12,
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     minHeight: 44,
     justifyContent: 'center',
     alignItems: 'center',
+    userSelect: 'none'
   },
   buttonPressed: {
     opacity: 0.6,
