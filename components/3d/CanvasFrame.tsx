@@ -8,7 +8,7 @@ import ExpoTHREE from 'expo-three';
 import * as THREE from "three";
 
 interface CanvasFrameProps {
-  texture?: 'texture1' | 'texture2';
+  texture?: 'texture1' | 'texture2' | 'texture3';
 }
 
 type CanvasFrameGLTF = GLTF & {
@@ -36,19 +36,45 @@ export default function CanvasFrame({ texture = 'texture1' }: CanvasFrameProps) 
   const {nodes, materials} = useGLTF(modelPath) as unknown as CanvasFrameGLTF;
 
   const texture1 = useMemo(() => {
-    const texture1Asset = Asset.fromModule(require('../../assets/textures/texture1.png'));
-    return new ExpoTHREE.TextureLoader().load(texture1Asset);
+    const texture1Asset = Asset.fromModule(require('../../assets/textures/telaBlinn_baseColor 2.png'));
+    const textureOne = new ExpoTHREE.TextureLoader().load(texture1Asset);
+    textureOne.colorSpace = THREE.SRGBColorSpace;
+
+    return textureOne;
   }, []);
   
   const texture2 = useMemo(() => {
-    const texture2Asset = Asset.fromModule(require('../../assets/textures/texture2.png'));
-    return new ExpoTHREE.TextureLoader().load(texture2Asset);
+    const texture2Asset = Asset.fromModule(require('../../assets/textures/telaBlinn_baseColor2 3.png'));
+    const textureTwo = new ExpoTHREE.TextureLoader().load(texture2Asset);
+    textureTwo.colorSpace = THREE.SRGBColorSpace;
+    
+    return textureTwo;
+  }, []);
+  
+  const texture3 = useMemo(() => {
+    const texture3Asset = Asset.fromModule(require('../../assets/textures/telaBlinn_baseColor3 1.png'));
+    const textureThree = new ExpoTHREE.TextureLoader().load(texture3Asset);
+    textureThree.colorSpace = THREE.SRGBColorSpace;
+    
+    return textureThree;
   }, []);
 
   // Apply texture to all meshes in the cloned scene
   useLayoutEffect(() => {
-    const selectedTexture = texture === 'texture1' ? texture1 : texture2;
-    console.debug("tela:", tela.current);
+    let selectedTexture;
+
+    switch (texture) {
+      case 'texture1':
+        selectedTexture = texture1;
+        break;
+      case 'texture2':
+        selectedTexture = texture2;
+        break;
+      case 'texture3':
+        selectedTexture = texture3;
+        break;
+
+    }
     if (tela && tela.current) {
       tela.current.material.map = selectedTexture;
       tela.current.material.needsUpdate = true;
@@ -60,7 +86,7 @@ export default function CanvasFrame({ texture = 'texture1' }: CanvasFrameProps) 
   });
 
   return (
-      <group ref={group} rotation={[ Math.PI / 2, 0, Math.PI / 16]} position={[0, 0, 0]}>
+      <group ref={group} rotation={[ Math.PI / 2, Math.PI, Math.PI / 16]} position={[0, 0, 0]}>
         <group> 
           <mesh name="polySurface2_1" geometry={nodes.polySurface2_1.geometry} material={materials.legnoBlinn}></mesh>
           <mesh name="polySurface2_3" geometry={nodes.polySurface2_3.geometry} material={materials.telaRetroBlinn}></mesh>

@@ -6,7 +6,7 @@ import CanvasFrame from './components/3d/CanvasFrame';
 import Scene from './components/3d/Scene';
 
 export default function App() {
-  const [selectedTexture, setSelectedTexture] = useState<'texture1' | 'texture2'>('texture1');
+  const [selectedTexture, setSelectedTexture] = useState<'texture1' | 'texture2' | 'texture3'>('texture1');
 
   return (
     <View style={styles.container}>
@@ -27,7 +27,7 @@ export default function App() {
           ]}
           onPress={() => setSelectedTexture('texture1')}
         >
-          <Text style={styles.buttonText}>Texture 1</Text>
+          <Text style={styles.buttonText}>Photo One</Text>
         </Pressable>
 
         <Pressable
@@ -37,7 +37,17 @@ export default function App() {
           ]}
           onPress={() => setSelectedTexture('texture2')}
         >
-          <Text style={styles.buttonText}>Texture 2</Text>
+          <Text style={styles.buttonText}>Photo Two</Text>
+        </Pressable>
+        
+        <Pressable
+          style={({ pressed }) => [
+            styles.button,
+            pressed && styles.buttonPressed,
+          ]}
+          onPress={() => setSelectedTexture('texture3')}
+        >
+          <Text style={styles.buttonText}>Photo Three</Text>
         </Pressable>
       </View>
 
